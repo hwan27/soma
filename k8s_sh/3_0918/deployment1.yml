@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-development
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: soma
+  template:
+    metadata:
+      labels:
+        app: soma
+    spec:
+      containers:
+      - name: my-nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+        env:
+        - name: VERSION
+          # value: "12"
+          valueFrom:
+            configMapKeyRef:
+              name: my-config
+              key: SOMA_VERSION_VALUE
+        - name: STRING
+          valueFrom:
+            configMapKeyRef:
+                name: my-config
+                key: SOMA_VERSION_KEY

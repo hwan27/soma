@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-hostpath2
+  labels:
+    storage: pv-test
+spec:
+  capacity:
+    storage: 1Gi    # Mi, Gi, Ti
+  accessModes: 
+  - ReadWriteOnce   # ReadWriteOnce: 하나의 pod만 mount 가능
+                    # ReadWroteMany: 여러개의 pod가 mount 가능
+                    # ReadOnlyOnce: 하나의 pod만 read 가능
+  volumeMode: Filesystem
+  storageClassName: my-sc
+  persistentVolumeReclaimPolicy: Delete         # 아무도 안쓸 때 volume 삭제
+                                                # Retain: 아무도 안써도 유지
+                                                # Recycle: 아무도 안쓸 때 삭제하고 공간은 유지
+  hostPath:
+    path: /tmp/my-vol2

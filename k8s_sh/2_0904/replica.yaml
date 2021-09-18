@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+  # Pod의 스펙을 정의
+    metadata:
+      name: my-pod
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: my-nginx
+        image: nginx:1.18
+        ports: 
+        - containerPort: 8000

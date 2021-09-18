@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-nginx
+spec:
+  # replica의 스펙을 정의함
+  replicas: 3
+  selector:
+    matchLabels:
+      hello: web
+  template:
+  # Pod의 스펙을 정의
+    metadata:
+      name: my-pod
+      labels:
+        hello: web
+    spec:
+      containers:
+      - name: my-nginx
+        image: lovehyun/express-app
+        ports: 
+        - containerPort: 8000
